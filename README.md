@@ -15,7 +15,7 @@
 
 ### GitHub Pages
 
-https://a1141114a.github.io/anjunyuan/campus-museum2-main/
+https://a114114a.github.io/anjunyuan/campus-museum2-main/
 
 ### 작성자
 
