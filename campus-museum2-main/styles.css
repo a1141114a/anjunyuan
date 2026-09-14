@@ -94,3 +94,187 @@ footer {
         padding: 6px 0;
     }
 }
+/* =========================
+   홈페이지 스타일
+========================= */
+.home-page {
+    background-color: #fff7e8;
+    color: #3a2f25;
+}
+
+.home-page header {
+    background-color: #ffffff;
+    padding: 35px 25px;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.home-page h1 {
+    font-size: 42px;
+    letter-spacing: 1px;
+}
+
+.home-page h2 {
+    color: #b56b2d;
+    border-bottom: 3px solid #e8b77c;
+}
+
+.home-page section {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.home-page img {
+    border-radius: 18px;
+}
+
+
+/* =========================
+   베리타스관 스타일
+========================= */
+.library-page {
+    background-color: #efe7d8;
+    color: #3f352c;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.library-page header {
+    border-bottom: 4px double #8b6f47;
+    padding-bottom: 25px;
+}
+
+.library-page h1 {
+    font-size: 40px;
+    color: #5f4a32;
+}
+
+.library-page h2 {
+    color: #6b5438;
+    border-bottom: 1px solid #9b8568;
+}
+
+.library-page section {
+    background-color: #f8f3ea;
+    padding: 22px;
+    border-left: 6px solid #8b6f47;
+}
+
+.library-page img {
+    border-radius: 4px;
+    border: 6px solid #d8c7ad;
+}
+
+
+/* =========================
+   하늘동산 스타일
+========================= */
+.garden-page {
+    background-color: #eef7ed;
+    color: #27452f;
+}
+
+.garden-page header {
+    background-color: #dcefd8;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+.garden-page h1 {
+    font-size: 38px;
+    color: #2f6b3c;
+}
+
+.garden-page h2 {
+    color: #3e7a4a;
+    border-bottom: 3px solid #8fc49a;
+}
+
+.garden-page section {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 24px;
+}
+
+.garden-page img {
+    border-radius: 30px;
+}
+
+.garden-page a {
+    color: #2c7a43;
+}
+
+
+/* =========================
+   예수성심성당 스타일
+========================= */
+.church-page {
+    background-color: #20242b;
+    color: #e8e8e8;
+}
+
+.church-page header {
+    background-color: #2d333c;
+    padding: 35px 25px;
+    border-radius: 8px;
+    border-bottom: 4px solid #9b865d;
+}
+
+.church-page h1 {
+    color: #f2e2bb;
+    font-size: 40px;
+}
+
+.church-page h2 {
+    color: #d8c28e;
+    border-bottom: 2px solid #6f654e;
+}
+
+.church-page section {
+    background-color: #2b3038;
+    padding: 24px;
+    border: 1px solid #464c55;
+    border-radius: 8px;
+}
+
+.church-page a {
+    color: #f1d694;
+}
+
+.church-page nav,
+.church-page footer {
+    border-top-color: #555b64;
+}
+
+.church-page img {
+    border-radius: 6px;
+    border: 3px solid #777064;
+}
+
+
+/* =========================
+   모바일 추가 조정
+========================= */
+@media (max-width: 600px) {
+    .home-page h1,
+    .library-page h1,
+    .garden-page h1,
+    .church-page h1 {
+        font-size: 28px;
+    }
+
+    .home-page section,
+    .library-page section,
+    .garden-page section,
+    .church-page section {
+        padding: 18px;
+    }
+
+    .home-page header,
+    .library-page header,
+    .garden-page header,
+    .church-page header {
+        padding: 22px 16px;
+    }
+}
