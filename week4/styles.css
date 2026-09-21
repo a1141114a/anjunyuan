@@ -1,3 +1,7 @@
+/* =========================
+기본 설정
+========================= */
+
 * {
 box-sizing: border-box;
 }
@@ -10,6 +14,11 @@ line-height: 1.7;
 background-color: #f5f7f4;
 color: #26332b;
 }
+
+
+/* =========================
+헤더
+========================= */
 
 header {
 background-color: #315f49;
@@ -27,11 +36,21 @@ header p {
 margin: 0;
 }
 
+
+/* =========================
+메인 영역
+========================= */
+
 main {
 width: 90%;
 max-width: 850px;
 margin: 35px auto;
 }
+
+
+/* =========================
+장소 선택 버튼
+========================= */
 
 .place-buttons {
 display: flex;
@@ -50,6 +69,7 @@ color: #294638;
 font-size: 16px;
 font-weight: bold;
 cursor: pointer;
+transition: 0.2s;
 }
 
 .place-buttons button:hover {
@@ -61,11 +81,23 @@ background-color: #315f49;
 color: white;
 }
 
+
+/* =========================
+장소 내용
+========================= */
+
 .place-content {
+display: none;
+
 background-color: white;
 padding: 30px;
 border-radius: 14px;
 box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* JavaScript가 선택한 장소만 표시 */
+.place-content.active {
+display: block;
 }
 
 .place-content h2 {
@@ -81,7 +113,12 @@ margin-top: 28px;
 color: #456c58;
 }
 
-#place-image {
+
+/* =========================
+이미지
+========================= */
+
+.place-content img {
 display: block;
 width: 100%;
 max-height: 500px;
@@ -90,17 +127,27 @@ margin: 22px 0;
 border-radius: 10px;
 }
 
+
+/* =========================
+지도
+========================= */
+
 .map-container {
 width: 100%;
 margin-top: 15px;
 }
 
-#place-map {
+.place-map {
 width: 100%;
 height: 380px;
 border: 0;
 border-radius: 10px;
 }
+
+
+/* =========================
+푸터
+========================= */
 
 footer {
 margin-top: 50px;
@@ -111,7 +158,11 @@ color: #526158;
 font-size: 14px;
 }
 
-/* 모바일 화면 */
+
+/* =========================
+모바일 화면
+========================= */
+
 @media (max-width: 600px) {
 
 header {
@@ -143,7 +194,7 @@ padding: 20px;
 font-size: 25px;
 }
 
-#place-map {
+.place-map {
 height: 300px;
 }
 }
