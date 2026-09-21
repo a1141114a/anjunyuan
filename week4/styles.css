@@ -1,0 +1,149 @@
+* {
+box-sizing: border-box;
+}
+
+body {
+margin: 0;
+padding: 0;
+font-family: Arial, "Noto Sans KR", sans-serif;
+line-height: 1.7;
+background-color: #f5f7f4;
+color: #26332b;
+}
+
+header {
+background-color: #315f49;
+color: white;
+text-align: center;
+padding: 45px 20px;
+}
+
+header h1 {
+margin: 0 0 12px;
+font-size: 38px;
+}
+
+header p {
+margin: 0;
+}
+
+main {
+width: 90%;
+max-width: 850px;
+margin: 35px auto;
+}
+
+.place-buttons {
+display: flex;
+justify-content: center;
+gap: 12px;
+margin-bottom: 30px;
+}
+
+.place-buttons button {
+flex: 1;
+padding: 14px 10px;
+border: none;
+border-radius: 8px;
+background-color: #dfe9e2;
+color: #294638;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+}
+
+.place-buttons button:hover {
+background-color: #b9d2c1;
+}
+
+.place-buttons button.active {
+background-color: #315f49;
+color: white;
+}
+
+.place-content {
+background-color: white;
+padding: 30px;
+border-radius: 14px;
+box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.place-content h2 {
+margin-top: 0;
+color: #315f49;
+font-size: 30px;
+border-bottom: 3px solid #aac5b3;
+padding-bottom: 10px;
+}
+
+.place-content h3 {
+margin-top: 28px;
+color: #456c58;
+}
+
+#place-image {
+display: block;
+width: 100%;
+max-height: 500px;
+object-fit: cover;
+margin: 22px 0;
+border-radius: 10px;
+}
+
+.map-container {
+width: 100%;
+margin-top: 15px;
+}
+
+#place-map {
+width: 100%;
+height: 380px;
+border: 0;
+border-radius: 10px;
+}
+
+footer {
+margin-top: 50px;
+padding: 25px;
+text-align: center;
+background-color: #e3e9e5;
+color: #526158;
+font-size: 14px;
+}
+
+/* 모바일 화면 */
+@media (max-width: 600px) {
+
+header {
+padding: 32px 15px;
+}
+
+header h1 {
+font-size: 29px;
+}
+
+main {
+width: 92%;
+margin: 25px auto;
+}
+
+.place-buttons {
+flex-direction: column;
+}
+
+.place-buttons button {
+width: 100%;
+}
+
+.place-content {
+padding: 20px;
+}
+
+.place-content h2 {
+font-size: 25px;
+}
+
+#place-map {
+height: 300px;
+}
+}
