@@ -21,48 +21,142 @@
 
 <main>
 
+<!-- 장소 선택 버튼 -->
 <section class="place-buttons">
-<button type="button" data-place="library">
+<button type="button" data-target="library">
 베리타스관 (중앙도서관)
 </button>
 
-<button type="button" data-place="garden">
+<button type="button" data-target="garden">
 하늘동산
 </button>
 
-<button type="button" data-place="church">
+<button type="button" data-target="church">
 예수성심성당
 </button>
 </section>
 
-<section class="place-content">
 
-<h2 id="place-title"></h2>
+<!-- 1. 베리타스관 -->
+<section id="library" class="place-content">
+
+<h2>베리타스관 (중앙도서관)</h2>
 
 <img
-id="place-image"
-src=""
-alt=""
+src="images/place1.jpg"
+alt="가톨릭대학교 중앙도서관"
 >
 
 <h3>이 장소를 선택한 이유</h3>
-<p id="place-reason"></p>
+<p>
+중앙도서관은 학생들이 공부하고 자료를 찾으며
+시간을 보낼 수 있는 중요한 공간이기 때문에 선택했습니다.
+</p>
 
 <h3>장소 소개</h3>
-<p id="place-description"></p>
+<p>
+베리타스관에 위치한 중앙도서관은
+다양한 자료와 학습 공간을 이용할 수 있는 장소입니다.
+</p>
 
 <h3>추천 활동</h3>
-<p id="place-activity"></p>
+<p>
+필요한 자료를 찾아보거나 조용한 공간에서 공부하면서
+캠퍼스 생활을 보내는 것을 추천합니다.
+</p>
 
 <h3>위치</h3>
 
 <div class="map-container">
 <iframe
-id="place-map"
+class="place-map"
 src=""
 loading="lazy"
-referrerpolicy="no-referrer-when-downgrade"
-title="장소 위치 지도">
+title="베리타스관 위치 지도">
+</iframe>
+</div>
+
+</section>
+
+
+<!-- 2. 하늘동산 -->
+<section id="garden" class="place-content">
+
+<h2>하늘동산</h2>
+
+<img
+src="images/place2.jpg"
+alt="가톨릭대학교 하늘동산"
+>
+
+<h3>이 장소를 선택한 이유</h3>
+<p>
+하늘동산은 캠퍼스 안에서 자연을 느끼며
+잠시 쉬어 갈 수 있는 공간이기 때문에 선택했습니다.
+</p>
+
+<h3>장소 소개</h3>
+<p>
+하늘동산은 나무와 자연 풍경을 볼 수 있어
+캠퍼스의 다른 건물들과는 다른 분위기를 느낄 수 있는 장소입니다.
+</p>
+
+<h3>추천 활동</h3>
+<p>
+산책을 하거나 친구와 이야기를 나누면서
+주변의 계절 풍경을 감상하는 것을 추천합니다.
+</p>
+
+<h3>위치</h3>
+
+<div class="map-container">
+<iframe
+class="place-map"
+src=""
+loading="lazy"
+title="하늘동산 위치 지도">
+</iframe>
+</div>
+
+</section>
+
+
+<!-- 3. 예수성심성당 -->
+<section id="church" class="place-content">
+
+<h2>예수성심성당</h2>
+
+<img
+src="images/place3.jpg"
+alt="가톨릭대학교 예수성심성당"
+>
+
+<h3>이 장소를 선택한 이유</h3>
+<p>
+예수성심성당은 캠퍼스 안에서 독특한 건축과
+차분한 분위기를 느낄 수 있는 장소이기 때문에 선택했습니다.
+</p>
+
+<h3>장소 소개</h3>
+<p>
+예수성심성당은 가톨릭대학교 성심교정 안에 있으며,
+캠퍼스에서 인상적인 분위기를 가진 공간 중 하나입니다.
+</p>
+
+<h3>추천 활동</h3>
+<p>
+성당의 건축 모습을 천천히 살펴보고
+주변을 걸으며 조용한 분위기를 느껴보는 것을 추천합니다.
+</p>
+
+<h3>위치</h3>
+
+<div class="map-container">
+<iframe
+class="place-map"
+src=""
+loading="lazy"
+title="예수성심성당 위치 지도">
 </iframe>
 </div>
 
@@ -70,9 +164,11 @@ title="장소 위치 지도">
 
 </main>
 
+
 <footer>
 <p>가톨릭대학교 웹프로그래밍 Week 4</p>
 </footer>
+
 
 <script src="app.js"></script>
 
