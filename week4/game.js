@@ -16,6 +16,7 @@ const player = {
     speed: 6
 };
 
+// 게임 상태
 let balls = [];
 let leftPressed = false;
 let rightPressed = false;
@@ -25,9 +26,11 @@ let frameCount = 0;
 let gameOver = false;
 let gameStarted = false;
 
+
 // 플레이어 그리기
 function drawPlayer() {
     ctx.fillStyle = "#315f49";
+
     ctx.fillRect(
         player.x,
         player.y,
@@ -36,12 +39,14 @@ function drawPlayer() {
     );
 }
 
+
 // 공 그리기
 function drawBalls() {
     ctx.fillStyle = "#d9534f";
 
     balls.forEach(function (ball) {
         ctx.beginPath();
+
         ctx.arc(
             ball.x,
             ball.y,
@@ -49,21 +54,36 @@ function drawBalls() {
             0,
             Math.PI * 2
         );
+
         ctx.fill();
     });
 }
+
 
 // 공 생성
 function createBall() {
     const radius = 12 + Math.random() * 10;
 
+    // 점수가 높아질수록 공의 속도가 빨라짐
+    const difficultyBonus = score * 0.02;
+
     balls.push({
-        x: radius + Math.random() * (canvas.width - radius * 2),
+        x:
+            radius +
+            Math.random() *
+            (canvas.width - radius * 2),
+
         y: -radius,
+
         radius: radius,
-        speed: 2 + Math.random() * 2
+
+        speed:
+            2 +
+            Math.random() * 2 +
+            difficultyBonus
     });
 }
+
 
 // 플레이어 이동
 function movePlayer() {
@@ -75,15 +95,18 @@ function movePlayer() {
         player.x += player.speed;
     }
 
-    // 화면 밖으로 나가지 않도록 제한
+    // 왼쪽 경계
     if (player.x < 0) {
         player.x = 0;
     }
 
+    // 오른쪽 경계
     if (player.x + player.width > canvas.width) {
-        player.x = canvas.width - player.width;
+        player.x =
+            canvas.width - player.width;
     }
 }
+
 
 // 공 이동
 function moveBalls() {
@@ -91,25 +114,39 @@ function moveBalls() {
         ball.y += ball.speed;
     });
 
+    // 화면 밖으로 나간 공 삭제
     balls = balls.filter(function (ball) {
-        return ball.y - ball.radius < canvas.height;
+        return (
+            ball.y - ball.radius <
+            canvas.height
+        );
     });
 }
+
 
 // 충돌 확인
 function checkCollision(ball) {
     const closestX = Math.max(
         player.x,
-        Math.min(ball.x, player.x + player.width)
+        Math.min(
+            ball.x,
+            player.x + player.width
+        )
     );
 
     const closestY = Math.max(
         player.y,
-        Math.min(ball.y, player.y + player.height)
+        Math.min(
+            ball.y,
+            player.y + player.height
+        )
     );
 
-    const distanceX = ball.x - closestX;
-    const distanceY = ball.y - closestY;
+    const distanceX =
+        ball.x - closestX;
+
+    const distanceY =
+        ball.y - closestY;
 
     return (
         distanceX * distanceX +
@@ -118,42 +155,56 @@ function checkCollision(ball) {
     );
 }
 
+
 // 게임 종료 확인
 function checkGameOver() {
     balls.forEach(function (ball) {
         if (checkCollision(ball)) {
             gameOver = true;
+
             messageElement.textContent =
                 "Game Over! 다시 시작 버튼을 눌러주세요.";
         }
     });
 }
 
-// 게임 화면 업데이트
+
+// 게임 업데이트
 function update() {
     if (gameOver) {
         return;
     }
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
     movePlayer();
 
     if (gameStarted) {
         frameCount++;
 
-        // 일정 시간마다 공 생성
+        // 일정 시간마다 새로운 공 생성
         if (frameCount % 55 === 0) {
             createBall();
         }
 
         moveBalls();
+
         checkGameOver();
 
-        // 점수 증가
-        if (!gameOver && frameCount % 10 === 0) {
+        // 게임이 끝나지 않았을 때 점수 증가
+        if (
+            !gameOver &&
+            frameCount % 10 === 0
+        ) {
             score++;
-            scoreElement.textContent = score;
+
+            scoreElement.textContent =
+                score;
         }
     }
 
@@ -163,24 +214,37 @@ function update() {
     requestAnimationFrame(update);
 }
 
+
 // 게임 시작
 function startGame() {
-    if (!gameStarted && !gameOver) {
+    if (
+        !gameStarted &&
+        !gameOver
+    ) {
         gameStarted = true;
+
         messageElement.textContent =
             "게임 진행 중! 떨어지는 공을 피하세요.";
     }
 }
 
+
 // 다시 시작
 function restartGame() {
     balls = [];
+
     score = 0;
     frameCount = 0;
+
     gameOver = false;
     gameStarted = false;
 
-    player.x = canvas.width / 2 - player.width / 2;
+    leftPressed = false;
+    rightPressed = false;
+
+    player.x =
+        canvas.width / 2 -
+        player.width / 2;
 
     scoreElement.textContent = "0";
 
@@ -190,67 +254,133 @@ function restartGame() {
     update();
 }
 
+
 // 키보드 조작
-document.addEventListener("keydown", function (event) {
-    if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        leftPressed = true;
-        startGame();
-    }
+document.addEventListener(
+    "keydown",
+    function (event) {
 
-    if (event.key === "ArrowRight") {
-        event.preventDefault();
-        rightPressed = true;
-        startGame();
-    }
-});
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
 
-document.addEventListener("keyup", function (event) {
-    if (event.key === "ArrowLeft") {
-        leftPressed = false;
-    }
+            leftPressed = true;
 
-    if (event.key === "ArrowRight") {
-        rightPressed = false;
-    }
-});
+            startGame();
+        }
 
-// 모바일 버튼
+        if (event.key === "ArrowRight") {
+            event.preventDefault();
+
+            rightPressed = true;
+
+            startGame();
+        }
+    }
+);
+
+
+document.addEventListener(
+    "keyup",
+    function (event) {
+
+        if (event.key === "ArrowLeft") {
+            leftPressed = false;
+        }
+
+        if (event.key === "ArrowRight") {
+            rightPressed = false;
+        }
+    }
+);
+
+
+// 모바일 / 마우스 조작
 function pressLeft(event) {
     event.preventDefault();
+
     leftPressed = true;
+
     startGame();
 }
+
 
 function pressRight(event) {
     event.preventDefault();
+
     rightPressed = true;
+
     startGame();
 }
 
+
 function stopMoving(event) {
     event.preventDefault();
+
     leftPressed = false;
     rightPressed = false;
 }
 
-leftButton.addEventListener("touchstart", pressLeft);
-rightButton.addEventListener("touchstart", pressRight);
 
-leftButton.addEventListener("touchend", stopMoving);
-rightButton.addEventListener("touchend", stopMoving);
+// 모바일 터치
+leftButton.addEventListener(
+    "touchstart",
+    pressLeft
+);
 
-leftButton.addEventListener("mousedown", pressLeft);
-rightButton.addEventListener("mousedown", pressRight);
+rightButton.addEventListener(
+    "touchstart",
+    pressRight
+);
 
-leftButton.addEventListener("mouseup", stopMoving);
-rightButton.addEventListener("mouseup", stopMoving);
+leftButton.addEventListener(
+    "touchend",
+    stopMoving
+);
 
-leftButton.addEventListener("mouseleave", stopMoving);
-rightButton.addEventListener("mouseleave", stopMoving);
+rightButton.addEventListener(
+    "touchend",
+    stopMoving
+);
+
+
+// 마우스
+leftButton.addEventListener(
+    "mousedown",
+    pressLeft
+);
+
+rightButton.addEventListener(
+    "mousedown",
+    pressRight
+);
+
+leftButton.addEventListener(
+    "mouseup",
+    stopMoving
+);
+
+rightButton.addEventListener(
+    "mouseup",
+    stopMoving
+);
+
+leftButton.addEventListener(
+    "mouseleave",
+    stopMoving
+);
+
+rightButton.addEventListener(
+    "mouseleave",
+    stopMoving
+);
+
 
 // 다시 시작 버튼
-restartButton.addEventListener("click", restartGame);
+restartButton.addEventListener(
+    "click",
+    restartGame
+);
 
-// 최초 화면
+
+// 최초 게임 화면 실행
 update();
