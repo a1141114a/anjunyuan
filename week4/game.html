@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>공 피하기 게임</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+    <h1>공 피하기 게임</h1>
+    <p>떨어지는 공을 피하면서 최대한 오래 살아남으세요!</p >
+</header>
+
+<main>
+
+    <section class="game-section">
+
+        <h2>게임 방법</h2>
+
+        <p>
+            키보드의 ← → 방향키를 사용하여 캐릭터를 움직입니다.
+            모바일에서는 아래의 버튼을 사용할 수 있습니다.
+            떨어지는 공에 닿으면 게임이 종료됩니다.
+        </p >
+
+        <p class="score">
+            점수: <span id="score">0</span>
+        </p >
+
+        <canvas id="gameCanvas" width="600" height="500"></canvas>
+
+        <div class="game-controls">
+            <button id="leftButton">← 왼쪽</button>
+            <button id="rightButton">오른쪽 →</button>
+        </div>
+
+        <button id="restartButton">
+            다시 시작
+        </button>
+
+        <p id="gameMessage">
+            방향키 또는 버튼을 사용하여 게임을 시작하세요.
+        </p >
+
+    </section>
+
+    <p class="back-link">
+        <a href=" ">
+            ← 캠퍼스 핫스팟으로 돌아가기
+        </a >
+    </p >
+
+</main>
+
+<footer>
+    <p>가톨릭대학교 웹프로그래밍 Week 4</p >
+</footer>
+
+<script src="game.js"></script>
+
+</body>
+</html>
