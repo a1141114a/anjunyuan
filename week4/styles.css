@@ -198,3 +198,72 @@ font-size: 25px;
 height: 300px;
 }
 }
+/* =========================
+   Week 4 Canvas Game
+   ========================= */
+
+.game-section {
+    background: white;
+    padding: 25px;
+    margin: 30px auto;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.score {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 20px 0 10px;
+}
+
+#gameCanvas {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto 20px;
+    background: #eef5f0;
+    border: 3px solid #315f49;
+    border-radius: 10px;
+    touch-action: none;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.game-controls button,
+#restartButton {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 8px;
+    background: #315f49;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.game-controls button:active,
+#restartButton:active {
+    transform: scale(0.96);
+}
+
+#gameMessage {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .game-section {
+        padding: 15px;
+    }
+
+    .game-controls button {
+        flex: 1;
+        padding: 15px 10px;
+    }
+}
