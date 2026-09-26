@@ -8,7 +8,10 @@
 
     <link rel="stylesheet" href="styles.css">
 
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Papa Parse -->
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 
@@ -16,60 +19,104 @@
 
 <header>
     <h1>세계 인구 데이터 분석</h1>
-    <p>World Bank의 인구 데이터를 이용하여 한국, 중국, 일본의 인구 변화를 비교합니다.</p >
+    <p>
+        World Bank의 인구 데이터를 이용하여
+        한국, 중국, 일본의 인구 변화를 비교합니다.
+    </p >
 </header>
 
 <main>
 
+    <!-- 그래프 1 -->
     <section class="chart-section">
+
         <h2>1. 한국, 중국, 일본의 인구는 어떻게 변화했을까?</h2>
 
         <canvas id="populationTrendChart"></canvas>
 
+        <h3>데이터 분석</h3>
+
         <p>
-            한국, 중국, 일본의 연도별 인구 변화를 비교합니다.
-            국가별 인구 변화의 흐름과 차이를 확인할 수 있습니다.
+            중국의 인구는 한국과 일본에 비해 매우 많은 것을 확인할 수 있다.
+            한국의 인구 변화는 비교적 크지 않은 반면,
+            일본은 인구가 감소하는 추세를 보이고 있다.
         </p >
+
     </section>
 
 
+    <!-- 그래프 2 -->
     <section class="chart-section">
+
         <h2>2. 2024년 세 나라의 인구 규모는 어떻게 다를까?</h2>
 
         <canvas id="populationCompareChart"></canvas>
 
+        <h3>데이터의 한계</h3>
+
         <p>
-            2024년 한국, 중국, 일본의 인구를 비교하여
-            세 국가의 인구 규모 차이를 확인합니다.
+            또한 한국과 일본은 인구 고령화가 점점 심화되고 있다.
+            따라서 총인구 데이터만으로는 사회 전체의 연령 구조를
+            정확하게 파악하기 어렵다는 한계가 있다.
         </p >
+
     </section>
 
 
+    <!-- 데이터 정보 -->
     <section class="source-section">
+
         <h2>데이터 정보</h2>
 
         <p>
-            <strong>데이터:</strong> Population, total
+            <strong>데이터:</strong>
+            Population, total
         </p >
 
         <p>
-            <strong>출처:</strong> World Bank
+            <strong>분석 기간:</strong>
+            2000년 이후
         </p >
 
         <p>
-            <strong>단위:</strong> 명
+            <strong>비교 대상:</strong>
+            대한민국, 중국, 일본
         </p >
+
+        <p>
+            <strong>단위:</strong>
+            명 (people)
+        </p >
+
+        <p>
+            <strong>출처:</strong>
+            World Bank
+        </p >
+
+        <p>
+            <a href=" "
+               target="_blank"
+               rel="noopener noreferrer">
+                World Bank Population, total 데이터 보기
+            </a >
+        </p >
+
     </section>
 
+
     <p class="back-link">
-        <a href=" ">← 캠퍼스 핫스팟으로 돌아가기</a >
+        <a href="index.html">
+            ← 캠퍼스 핫스팟으로 돌아가기
+        </a >
     </p >
 
 </main>
 
+
 <footer>
     <p>가톨릭대학교 웹프로그래밍 Week 4</p >
 </footer>
+
 
 <script src="statistics.js"></script>
 
