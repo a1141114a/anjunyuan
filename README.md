@@ -52,6 +52,7 @@ Week 2에서 만든 캠퍼스 핫스팟 웹사이트에 CSS 스타일과 반응�
 스마트폰에서 메인 페이지와 세 개의 장소 페이지를 직접 확인했습니다.
 
 모든 페이지가 모바일 화면에서 정상적으로 표시되었고, 이미지와 링크도 정상적으로 작동하는 것을 확인했습니다.
+'''
 ## Week 4 - JavaScript & Data Visualization
 
 ### 1. Interactive Campus Hotspots
