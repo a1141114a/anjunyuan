@@ -304,6 +304,12 @@
       테스트 시작
     </button>
 
+<div id="historyArea" style="margin-top: 28px;">
+  <h3>📋 이전 테스트 기록</h3>
+  <div id="historyList">
+    <p>아직 저장된 기록이 없습니다.</p >
+  </div>
+</div>
   </section>
 
 
@@ -822,7 +828,41 @@ function saveHistory() {
     JSON.stringify(history)
   );
 }
+function displayHistory() {
 
+  const historyList =
+    document.getElementById("historyList");
+
+  if (!historyList) return;
+
+  const history =
+    JSON.parse(localStorage.getItem(LOCAL_HISTORY) || "[]");
+
+  if (history.length === 0) {
+    historyList.innerHTML =
+      "<p>아직 저장된 기록이 없습니다.</p >";
+    return;
+  }
+
+  historyList.innerHTML = "";
+
+  history.slice().reverse().forEach(function(record) {
+
+    const item = document.createElement("div");
+
+    item.style.padding = "10px";
+    item.style.marginTop = "8px";
+    item.style.border = "1px solid #ddd";
+    item.style.borderRadius = "8px";
+
+    item.innerHTML =
+      "<strong>" + record.nickname + "</strong><br>" +
+      "자유 여행 성향: " + record.score + " / " + record.total + "<br>" +
+      "<small>" + record.date + "</small>";
+
+    historyList.appendChild(item);
+  });
+}
   /* -----------------------------
      다시 테스트
   ----------------------------- */
