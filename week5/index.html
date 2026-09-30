@@ -372,66 +372,75 @@
 
 </div>
 
-
 <script>
 
   const questions = [
-
     {
       question: "여행을 준비할 때 나는?",
       a: "출발 전에 일정과 장소를 미리 정한다.",
       b: "큰 계획만 정하고 나머지는 현지에서 결정한다."
     },
-
     {
       question: "처음 가는 도시에서 이동할 때 나는?",
       a: "미리 찾아본 경로대로 이동한다.",
       b: "마음에 드는 길이 보이면 일단 가 본다."
     },
-
     {
       question: "여행 중 맛집을 고를 때 나는?",
       a: "후기와 평점을 확인하고 방문한다.",
       b: "지나가다가 마음에 드는 곳에 들어간다."
     },
-
     {
       question: "예정했던 장소가 갑자기 문을 닫았다면?",
       a: "미리 준비한 다른 장소로 이동한다.",
       b: "주변을 돌아다니며 새로운 장소를 찾는다."
     },
-
     {
       question: "숙소를 예약할 때 나는?",
       a: "여행 전에 숙소를 모두 예약한다.",
       b: "상황에 따라 여행 중에도 숙소를 정할 수 있다."
     },
-
     {
       question: "여행 사진을 찍을 때 나는?",
       a: "유명한 포토존을 미리 찾아본다.",
       b: "걷다가 마음에 드는 순간을 자유롭게 찍는다."
     },
-
     {
       question: "하루 일정이 예상보다 일찍 끝났다면?",
       a: "다음 일정이나 저장해 둔 장소를 찾아간다.",
       b: "카페에 가거나 주변을 천천히 돌아다닌다."
     },
-
     {
       question: "내가 생각하는 좋은 여행은?",
       a: "가고 싶었던 곳을 계획대로 많이 보는 여행",
       b: "예상하지 못한 경험을 자유롭게 즐기는 여행"
     }
-
   ];
 
+
+  /* -----------------------------
+     게임 상태
+  ----------------------------- */
 
   let currentQuestion = 0;
   let freeScore = 0;
   let nickname = "";
+  let answers = [];
 
+
+  /* -----------------------------
+     Storage 이름
+  ----------------------------- */
+
+  const STORAGE_NAME = "week5.nickname";
+  const STORAGE_QUESTION = "week5.currentQuestion";
+  const STORAGE_SCORE = "week5.freeScore";
+  const STORAGE_ANSWERS = "week5.answers";
+
+
+  /* -----------------------------
+     HTML 요소
+  ----------------------------- */
 
   const startScreen =
     document.getElementById("startScreen");
@@ -470,18 +479,17 @@
     document.getElementById("choiceB");
 
 
+  /* -----------------------------
+     게임 시작
+  ----------------------------- */
 
   startButton.addEventListener("click", startGame);
 
-
   nicknameInput.addEventListener("keydown", function(event) {
-
     if (event.key === "Enter") {
       startGame();
     }
-
   });
-
 
 
   function startGame() {
@@ -489,15 +497,16 @@
     nickname = nicknameInput.value.trim();
 
     if (nickname === "") {
-
       alert("닉네임을 입력해 주세요.");
       nicknameInput.focus();
       return;
-
     }
 
     currentQuestion = 0;
     freeScore = 0;
+    answers = [];
+
+    saveProgress();
 
     startScreen.classList.add("hidden");
     resultScreen.classList.add("hidden");
@@ -506,10 +515,12 @@
     playerName.textContent = nickname;
 
     showQuestion();
-
   }
 
 
+  /* -----------------------------
+     문제 표시
+  ----------------------------- */
 
   function showQuestion() {
 
@@ -532,27 +543,25 @@
 
     progress.style.width =
       ((currentQuestion + 1) / questions.length * 100) + "%";
-
   }
 
 
+  /* -----------------------------
+     답 선택
+  ----------------------------- */
 
   choiceA.addEventListener("click", function() {
-
     selectAnswer("A");
-
   });
-
 
   choiceB.addEventListener("click", function() {
-
     selectAnswer("B");
-
   });
-
 
 
   function selectAnswer(answer) {
+
+    answers.push(answer);
 
     if (answer === "B") {
       freeScore++;
@@ -560,19 +569,124 @@
 
     currentQuestion++;
 
+    /*
+      답을 선택할 때마다 진행 상황을 저장한다.
+    */
+
+    saveProgress();
+
     if (currentQuestion < questions.length) {
-
       showQuestion();
-
     } else {
-
       showResult();
-
     }
-
   }
 
 
+  /* -----------------------------
+     sessionStorage 저장
+  ----------------------------- */
+
+  function saveProgress() {
+
+    sessionStorage.setItem(
+      STORAGE_NAME,
+      nickname
+    );
+
+    sessionStorage.setItem(
+      STORAGE_QUESTION,
+      String(currentQuestion)
+    );
+
+    sessionStorage.setItem(
+      STORAGE_SCORE,
+      String(freeScore)
+    );
+
+    sessionStorage.setItem(
+      STORAGE_ANSWERS,
+      JSON.stringify(answers)
+    );
+  }
+
+
+  /* -----------------------------
+     저장된 진행 상황 불러오기
+  ----------------------------- */
+
+  function loadProgress() {
+
+    const savedName =
+      sessionStorage.getItem(STORAGE_NAME);
+
+    const savedQuestion =
+      sessionStorage.getItem(STORAGE_QUESTION);
+
+    const savedScore =
+      sessionStorage.getItem(STORAGE_SCORE);
+
+    const savedAnswers =
+      sessionStorage.getItem(STORAGE_ANSWERS);
+
+
+    if (
+      savedName !== null &&
+      savedQuestion !== null
+    ) {
+
+      nickname = savedName;
+
+      currentQuestion =
+        Number(savedQuestion);
+
+      freeScore =
+        Number(savedScore || 0);
+
+
+      try {
+
+        answers =
+          JSON.parse(savedAnswers || "[]");
+
+      } catch (error) {
+
+        answers = [];
+
+      }
+
+
+      /*
+        아직 모든 문제를 끝내지 않았다면
+        게임 화면을 복구한다.
+      */
+
+      if (
+        currentQuestion >= 0 &&
+        currentQuestion < questions.length
+      ) {
+
+        nicknameInput.value = nickname;
+
+        startScreen.classList.add("hidden");
+        resultScreen.classList.add("hidden");
+        gameScreen.classList.remove("hidden");
+
+        playerName.textContent = nickname;
+
+        showQuestion();
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+
+  /* -----------------------------
+     결과 화면
+  ----------------------------- */
 
   function showResult() {
 
@@ -617,9 +731,7 @@
         <p>18:00 · 계획한 야경 장소 방문</p >
       `;
 
-    }
-
-    else if (freeScore <= 5) {
+    } else if (freeScore <= 5) {
 
       icon.textContent = "🌤️";
 
@@ -636,9 +748,7 @@
         <p>19:00 · 그날 기분에 따라 저녁 일정 결정</p >
       `;
 
-    }
-
-    else {
+    } else {
 
       icon.textContent = "🎒";
 
@@ -654,26 +764,61 @@
         <p>14:00 · 관심 가는 동네 자유롭게 탐방</p >
         <p>18:30 · 마음에 드는 장소에서 하루 마무리</p >
       `;
-
     }
-
   }
 
 
+  /* -----------------------------
+     다시 테스트
+  ----------------------------- */
 
   document
     .getElementById("restartButton")
     .addEventListener("click", function() {
 
+      /*
+        새 게임을 시작하므로
+        기존 sessionStorage 진행 상황을 삭제한다.
+      */
+
+      clearProgress();
+
       currentQuestion = 0;
       freeScore = 0;
+      answers = [];
+      nickname = "";
+
+      nicknameInput.value = "";
 
       resultScreen.classList.add("hidden");
+      gameScreen.classList.add("hidden");
       startScreen.classList.remove("hidden");
 
+      nicknameInput.focus();
     });
 
+
+  /* -----------------------------
+     임시 진행 상황 삭제
+  ----------------------------- */
+
+  function clearProgress() {
+
+    sessionStorage.removeItem(STORAGE_NAME);
+    sessionStorage.removeItem(STORAGE_QUESTION);
+    sessionStorage.removeItem(STORAGE_SCORE);
+    sessionStorage.removeItem(STORAGE_ANSWERS);
+  }
+
+
+  /* -----------------------------
+     페이지가 열릴 때 복구 시도
+  ----------------------------- */
+
+  loadProgress();
+
 </script>
+
 
 </body>
 </html>
