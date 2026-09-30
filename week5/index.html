@@ -437,7 +437,8 @@
   const STORAGE_SCORE = "week5.freeScore";
   const STORAGE_ANSWERS = "week5.answers";
   const STORAGE_COMPLETED = "week5.completed";
-
+  const LOCAL_HISTORY = "travelQuizHistory";
+  
   /* -----------------------------
      HTML 요소
   ----------------------------- */
@@ -721,7 +722,7 @@
 
     gameScreen.classList.add("hidden");
     resultScreen.classList.remove("hidden");
-
+    saveHistory();
 
     const title =
       document.getElementById("resultTitle");
@@ -795,7 +796,32 @@
       `;
     }
   }
+function saveHistory() {
 
+  const history =
+    JSON.parse(localStorage.getItem(LOCAL_HISTORY) || "[]");
+
+  const alreadySaved = history.some(function(item) {
+    return item.nickname === nickname &&
+           item.score === freeScore;
+  });
+
+  if (alreadySaved) return;
+
+  const record = {
+    nickname: nickname,
+    score: freeScore,
+    total: 8,
+    date: new Date().toLocaleString()
+  };
+
+  history.push(record);
+
+  localStorage.setItem(
+    LOCAL_HISTORY,
+    JSON.stringify(history)
+  );
+}
 
   /* -----------------------------
      다시 테스트
