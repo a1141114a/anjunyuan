@@ -1,1 +1,679 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>나의 여행 스타일 테스트</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, "Noto Sans KR", sans-serif;
+      background: #f3f6f8;
+      color: #263238;
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #607d8b;
+      line-height: 1.6;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* 시작 화면 */
+
+    .start-icon {
+      font-size: 60px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .start-title {
+      text-align: center;
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    .start-description {
+      text-align: center;
+      color: #607d8b;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      border: 1px solid #cfd8dc;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    input:focus {
+      outline: 2px solid #78909c;
+      border-color: transparent;
+    }
+
+    .main-button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      background: #37474f;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .main-button:hover {
+      background: #263238;
+    }
+
+    /* 게임 화면 */
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      color: #607d8b;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 9px;
+      background: #eceff1;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: #546e7a;
+      transition: width 0.3s;
+    }
+
+    .question-number {
+      color: #78909c;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .question {
+      font-size: 24px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .choice {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 2px solid #cfd8dc;
+      border-radius: 13px;
+      padding: 18px;
+      margin-bottom: 12px;
+      font-size: 16px;
+      line-height: 1.5;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .choice:hover {
+      border-color: #546e7a;
+      background: #f5f7f8;
+      transform: translateY(-2px);
+    }
+
+    .choice strong {
+      display: inline-block;
+      margin-right: 8px;
+      color: #455a64;
+    }
+
+    /* 결과 화면 */
+
+    .result {
+      text-align: center;
+    }
+
+    .result-icon {
+      font-size: 65px;
+      margin-bottom: 10px;
+    }
+
+    .result-small {
+      color: #78909c;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .result h2 {
+      font-size: 29px;
+      margin-bottom: 15px;
+    }
+
+    .result-description {
+      color: #546e7a;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+
+    .score-box {
+      background: #f4f6f7;
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .score-box strong {
+      font-size: 22px;
+    }
+
+    .plan {
+      text-align: left;
+      background: #f8fafb;
+      border-left: 4px solid #607d8b;
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 25px;
+    }
+
+    .plan h3 {
+      margin-bottom: 12px;
+    }
+
+    .plan p {
+      margin: 8px 0;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      color: #90a4ae;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 20px 12px;
+      }
+
+      header h1 {
+        font-size: 26px;
+      }
+
+      .card {
+        padding: 22px 18px;
+        border-radius: 14px;
+      }
+
+      .question {
+        font-size: 21px;
+      }
+
+      .choice {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>✈️ 나의 여행 스타일 테스트</h1>
+    <p>
+      8개의 질문에 답하고<br>
+      나에게 맞는 여행 스타일을 알아보세요.
+    </p >
+  </header>
+
+
+  <!-- 시작 화면 -->
+
+  <section id="startScreen" class="card">
+
+    <div class="start-icon">🧳</div>
+
+    <h2 class="start-title">여행을 시작해 볼까요?</h2>
+
+    <p class="start-description">
+      여행할 때 나는 계획형일까요, 자유형일까요?<br>
+      두 가지 선택지 중 더 가까운 것을 선택하세요.
+    </p >
+
+    <label for="nickname">닉네임</label>
+
+    <input
+      type="text"
+      id="nickname"
+      maxlength="15"
+      placeholder="닉네임을 입력하세요"
+    >
+
+    <button class="main-button" id="startButton">
+      테스트 시작
+    </button>
+
+  </section>
+
+
+  <!-- 문제 화면 -->
+
+  <section id="gameScreen" class="card hidden">
+
+    <div class="progress-info">
+      <span id="playerName"></span>
+      <span id="progressText">1 / 8</span>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <div class="question-number" id="questionNumber">
+      QUESTION 1
+    </div>
+
+    <h2 class="question" id="question"></h2>
+
+    <button class="choice" id="choiceA"></button>
+
+    <button class="choice" id="choiceB"></button>
+
+  </section>
+
+
+  <!-- 결과 화면 -->
+
+  <section id="resultScreen" class="card result hidden">
+
+    <div class="result-icon" id="resultIcon">🌍</div>
+
+    <p class="result-small">당신의 여행 스타일은</p >
+
+    <h2 id="resultTitle"></h2>
+
+    <p class="result-description" id="resultDescription"></p >
+
+    <div class="score-box">
+      자유 여행 성향
+      <br>
+      <strong id="resultScore"></strong>
+    </div>
+
+    <div class="plan">
+
+      <h3>📍 추천 하루 여행</h3>
+
+      <div id="resultPlan"></div>
+
+    </div>
+
+    <button class="main-button" id="restartButton">
+      다시 테스트하기
+    </button>
+
+  </section>
+
+
+  <footer>
+    Web Programming · Week 05
+  </footer>
+
+</div>
+
+
+<script>
+
+  const questions = [
+
+    {
+      question: "여행을 준비할 때 나는?",
+      a: "출발 전에 일정과 장소를 미리 정한다.",
+      b: "큰 계획만 정하고 나머지는 현지에서 결정한다."
+    },
+
+    {
+      question: "처음 가는 도시에서 이동할 때 나는?",
+      a: "미리 찾아본 경로대로 이동한다.",
+      b: "마음에 드는 길이 보이면 일단 가 본다."
+    },
+
+    {
+      question: "여행 중 맛집을 고를 때 나는?",
+      a: "후기와 평점을 확인하고 방문한다.",
+      b: "지나가다가 마음에 드는 곳에 들어간다."
+    },
+
+    {
+      question: "예정했던 장소가 갑자기 문을 닫았다면?",
+      a: "미리 준비한 다른 장소로 이동한다.",
+      b: "주변을 돌아다니며 새로운 장소를 찾는다."
+    },
+
+    {
+      question: "숙소를 예약할 때 나는?",
+      a: "여행 전에 숙소를 모두 예약한다.",
+      b: "상황에 따라 여행 중에도 숙소를 정할 수 있다."
+    },
+
+    {
+      question: "여행 사진을 찍을 때 나는?",
+      a: "유명한 포토존을 미리 찾아본다.",
+      b: "걷다가 마음에 드는 순간을 자유롭게 찍는다."
+    },
+
+    {
+      question: "하루 일정이 예상보다 일찍 끝났다면?",
+      a: "다음 일정이나 저장해 둔 장소를 찾아간다.",
+      b: "카페에 가거나 주변을 천천히 돌아다닌다."
+    },
+
+    {
+      question: "내가 생각하는 좋은 여행은?",
+      a: "가고 싶었던 곳을 계획대로 많이 보는 여행",
+      b: "예상하지 못한 경험을 자유롭게 즐기는 여행"
+    }
+
+  ];
+
+
+  let currentQuestion = 0;
+  let freeScore = 0;
+  let nickname = "";
+
+
+  const startScreen =
+    document.getElementById("startScreen");
+
+  const gameScreen =
+    document.getElementById("gameScreen");
+
+  const resultScreen =
+    document.getElementById("resultScreen");
+
+  const nicknameInput =
+    document.getElementById("nickname");
+
+  const startButton =
+    document.getElementById("startButton");
+
+  const questionElement =
+    document.getElementById("question");
+
+  const questionNumber =
+    document.getElementById("questionNumber");
+
+  const progress =
+    document.getElementById("progress");
+
+  const progressText =
+    document.getElementById("progressText");
+
+  const playerName =
+    document.getElementById("playerName");
+
+  const choiceA =
+    document.getElementById("choiceA");
+
+  const choiceB =
+    document.getElementById("choiceB");
+
+
+
+  startButton.addEventListener("click", startGame);
+
+
+  nicknameInput.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+      startGame();
+    }
+
+  });
+
+
+
+  function startGame() {
+
+    nickname = nicknameInput.value.trim();
+
+    if (nickname === "") {
+
+      alert("닉네임을 입력해 주세요.");
+      nicknameInput.focus();
+      return;
+
+    }
+
+    currentQuestion = 0;
+    freeScore = 0;
+
+    startScreen.classList.add("hidden");
+    resultScreen.classList.add("hidden");
+    gameScreen.classList.remove("hidden");
+
+    playerName.textContent = nickname;
+
+    showQuestion();
+
+  }
+
+
+
+  function showQuestion() {
+
+    const q = questions[currentQuestion];
+
+    questionNumber.textContent =
+      "QUESTION " + (currentQuestion + 1);
+
+    questionElement.textContent =
+      q.question;
+
+    choiceA.innerHTML =
+      "<strong>A.</strong> " + q.a;
+
+    choiceB.innerHTML =
+      "<strong>B.</strong> " + q.b;
+
+    progressText.textContent =
+      (currentQuestion + 1) + " / " + questions.length;
+
+    progress.style.width =
+      ((currentQuestion + 1) / questions.length * 100) + "%";
+
+  }
+
+
+
+  choiceA.addEventListener("click", function() {
+
+    selectAnswer("A");
+
+  });
+
+
+  choiceB.addEventListener("click", function() {
+
+    selectAnswer("B");
+
+  });
+
+
+
+  function selectAnswer(answer) {
+
+    if (answer === "B") {
+      freeScore++;
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+
+      showQuestion();
+
+    } else {
+
+      showResult();
+
+    }
+
+  }
+
+
+
+  function showResult() {
+
+    gameScreen.classList.add("hidden");
+    resultScreen.classList.remove("hidden");
+
+
+    const title =
+      document.getElementById("resultTitle");
+
+    const description =
+      document.getElementById("resultDescription");
+
+    const icon =
+      document.getElementById("resultIcon");
+
+    const score =
+      document.getElementById("resultScore");
+
+    const plan =
+      document.getElementById("resultPlan");
+
+
+    score.textContent =
+      freeScore + " / 8";
+
+
+    if (freeScore <= 2) {
+
+      icon.textContent = "🗺️";
+
+      title.textContent =
+        nickname + "님은 계획형 여행자";
+
+      description.textContent =
+        "여행 전에 필요한 정보를 충분히 찾아보고 안정적인 일정으로 움직이는 것을 좋아하는 스타일입니다.";
+
+      plan.innerHTML = `
+        <p>09:00 · 미리 정한 관광지 방문</p >
+        <p>12:00 · 예약한 맛집에서 점심</p >
+        <p>14:00 · 주요 명소 관람</p >
+        <p>18:00 · 계획한 야경 장소 방문</p >
+      `;
+
+    }
+
+    else if (freeScore <= 5) {
+
+      icon.textContent = "🌤️";
+
+      title.textContent =
+        nickname + "님은 균형형 여행자";
+
+      description.textContent =
+        "중요한 일정은 미리 준비하지만 여행 중 생기는 새로운 상황도 즐길 수 있는 스타일입니다.";
+
+      plan.innerHTML = `
+        <p>10:00 · 대표 관광지 방문</p >
+        <p>12:30 · 주변에서 점심 메뉴 선택</p >
+        <p>15:00 · 계획한 장소 또는 새로운 장소 방문</p >
+        <p>19:00 · 그날 기분에 따라 저녁 일정 결정</p >
+      `;
+
+    }
+
+    else {
+
+      icon.textContent = "🎒";
+
+      title.textContent =
+        nickname + "님은 자유형 여행자";
+
+      description.textContent =
+        "정해진 일정에 얽매이기보다 그날의 분위기와 새로운 발견을 즐기는 스타일입니다.";
+
+      plan.innerHTML = `
+        <p>10:30 · 천천히 하루 시작</p >
+        <p>12:00 · 걷다가 발견한 식당에서 점심</p >
+        <p>14:00 · 관심 가는 동네 자유롭게 탐방</p >
+        <p>18:30 · 마음에 드는 장소에서 하루 마무리</p >
+      `;
+
+    }
+
+  }
+
+
+
+  document
+    .getElementById("restartButton")
+    .addEventListener("click", function() {
+
+      currentQuestion = 0;
+      freeScore = 0;
+
+      resultScreen.classList.add("hidden");
+      startScreen.classList.remove("hidden");
+
+    });
+
+</script>
+
+</body>
+</html>
