@@ -436,7 +436,7 @@
   const STORAGE_QUESTION = "week5.currentQuestion";
   const STORAGE_SCORE = "week5.freeScore";
   const STORAGE_ANSWERS = "week5.answers";
-
+  const STORAGE_COMPLETED = "week5.completed";
 
   /* -----------------------------
      HTML 요소
@@ -575,11 +575,22 @@
 
     saveProgress();
 
-    if (currentQuestion < questions.length) {
-      showQuestion();
-    } else {
-      showResult();
-    }
+  if (
+  currentQuestion < questions.length
+) {
+
+  showQuestion();
+
+} else {
+
+  sessionStorage.setItem(
+    STORAGE_COMPLETED,
+    "true"
+  );
+
+  showResult();
+
+}
   }
 
 
@@ -628,7 +639,10 @@
 
     const savedAnswers =
       sessionStorage.getItem(STORAGE_ANSWERS);
-
+    const savedCompleted =
+  sessionStorage.getItem(
+    STORAGE_COMPLETED
+  );
 
     if (
       savedName !== null &&
@@ -680,8 +694,23 @@
       }
     }
 
+        if (
+      savedCompleted === "true" ||
+      currentQuestion >= questions.length
+    ) {
+      nicknameInput.value = nickname;
+
+      startScreen.classList.add("hidden");
+      gameScreen.classList.add("hidden");
+      resultScreen.classList.remove("hidden");
+
+      showResult();
+
+      return true;
+    }
+
     return false;
-  }
+}
 
 
   /* -----------------------------
