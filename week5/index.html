@@ -915,14 +915,14 @@ function displayHistory() {
      임시 진행 상황 삭제
   ----------------------------- */
 
-  function clearProgress() {
+function clearProgress() {
 
-    sessionStorage.removeItem(STORAGE_NAME);
-    sessionStorage.removeItem(STORAGE_QUESTION);
-    sessionStorage.removeItem(STORAGE_SCORE);
-    sessionStorage.removeItem(STORAGE_ANSWERS);
-  }
-
+  sessionStorage.removeItem(STORAGE_NAME);
+  sessionStorage.removeItem(STORAGE_QUESTION);
+  sessionStorage.removeItem(STORAGE_SCORE);
+  sessionStorage.removeItem(STORAGE_ANSWERS);
+  sessionStorage.removeItem(STORAGE_COMPLETED);
+}
 
   /* -----------------------------
      페이지가 열릴 때 복구 시도
