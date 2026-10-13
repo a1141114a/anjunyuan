@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">A LITTLE BREAK ON CAMPUS · WP WEEK 07</p>
+  <h1>{{ board_title }}</h1>
+  <p class="lead">{{ board_question }}</p>
+  <p>혼자 집중할 곳도, 잠깐 숨을 돌릴 곳도 좋아요. 장소와 추천하는 이유를 짧게 남겨 함께 찾아봐요.</p>
+  <div class="place-tags" aria-label="추천할 수 있는 장소 예시"><span>베리타스관 · 공부</span><span>하늘동산 · 휴식</span><span>나만 아는 캠퍼스 한 곳</span></div>
+  <p class="invitation">예시: “하늘동산 · 다음 수업 전 잠깐 쉬어 가고 싶어요.” 여러분의 공강 한 곳은 어디인가요?</p>
+</section>
+
+<section class="panel" aria-labelledby="write-heading">
+  <h2 id="write-heading">나의 공강 장소 추천</h2>
+  {% if current_user %}
+    <form method="post" action="{{ url_for('add_comment') }}">
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+      <label for="content">{{ current_user['username'] }}님의 한 줄 글 · 1~300자</label>
+      <textarea id="content" name="content" rows="3" maxlength="300" required placeholder="장소 · 쉬기 또는 공부 · 추천하는 이유"></textarea>
+      <button class="primary" type="submit">추천 남기기</button>
+    </form>
+  {% else %}
+    <p>글을 쓰려면 실습용 계정으로 로그인하세요. 목록은 로그인하지 않아도 볼 수 있습니다.</p>
+    <p><a class="button-link" href="{{ url_for('login') }}">로그인하기</a></p>
+  {% endif %}
+</section>
+
+<section class="panel" aria-labelledby="list-heading">
+  <div class="section-heading"><h2 id="list-heading">함께 찾은 공강 한 곳</h2><span>{{ comments|length }}개</span></div>
+  {% if request.args.get('reported') %}<p class="notice">신고를 받았습니다. 관리 화면에서 확인할 수 있습니다.</p>{% endif %}
+  {% if comments %}
+    <ol class="comment-list">
+      {% for comment in comments %}
+        <li class="comment-card">
+          <div class="comment-meta"><strong>{{ comment['username'] }}</strong><time>{{ comment['created_at'] }} UTC</time></div>
+          <p class="comment-text">{{ comment['content'] }}</p>
+          {% if current_user and current_user['id'] == comment['author_id'] %}
+            <form method="post" action="{{ url_for('delete_comment', comment_id=comment['id']) }}">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+              <button class="delete-button" type="submit">내 글 삭제</button>
+            </form>
+          {% elif current_user %}
+            <form class="report-form" method="post" action="{{ url_for('report_comment', comment_id=comment['id']) }}">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+              <label for="reason-{{ comment['id'] }}">신고 이유 · 3~100자</label>
+              <input id="reason-{{ comment['id'] }}" name="reason" minlength="3" maxlength="100" required placeholder="예: 반복 광고">
+              <button class="report-button" type="submit">신고</button>
+            </form>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="empty">아직 추천이 없습니다. 쉬거나 공부하기 좋은 첫 장소를 알려 주세요.</p>
+  {% endif %}
+</section>
+{% endblock %}
