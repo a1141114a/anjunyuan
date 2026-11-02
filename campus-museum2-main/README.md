@@ -14,7 +14,7 @@
 
 웹사이트 주소:
 
-https://a11411114a.github.io/anjunyuan/campus-museum2-main/index.html
+https://a1141114a.github.io/anjunyuan/campus-museum2-main/index.html
 
 ## 작성자
 
